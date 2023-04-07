@@ -81,3 +81,6 @@ def listing_crunch(url, budget):
 
 if __name__ == "__main__":
     listing_crunch('https://www.mobile.bg/pcgi/mobile.cgi?act=3&slink=rylc4e&f1=1', 2000)
+
+
+# https://www.youtube.com/watch?v=704hLk559c8

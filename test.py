@@ -28,7 +28,7 @@ THE POPPER FUNCTION BREAKS, CUZ WE TAKIN UP TO THE 4TH CHARACTER, SO MAYBE A DIF
 from bs4 import BeautifulSoup
 import requests
 
-url = 'https://www.mobile.bg/pcgi/mobile.cgi?act=3&slink=rxes3n&f1=1'
+url = 'https://www.mobile.bg/pcgi/mobile.cgi?act=3&slink=rylc4e&f1=1'
 html_sc = requests.get(url).text
 soup = BeautifulSoup(html_sc, 'html5lib')
 mock_budget = 10000
@@ -41,17 +41,30 @@ def popper(string):
     return int(string[:4])
 
 
+
+
+# this is ok when the pages are no more than 10 - 11, but in the case of for example 58 pages, another way needs to be - Страница 1 от (58) - take this num and iterate over the links adding the respective changes
 num_page = soup.find_all('a', class_ = 'pageNumbers')
+page_info = soup.find('span', class_ = 'pageNumbersInfo').text
 pages_links = []
 pages_links.append(url)
+exact_pages = int(page_info[-2:])
+print(exact_pages)
 
-for index, i in enumerate(num_page):
-    i = num_page[index]['href'] 
-    i = 'https:' + i
-    if i not in pages_links:
-        pages_links.append(i)
+for i in range(2, exact_pages + 1):
+    trimmed_url = url[:-1]
+    added_url = trimmed_url + str(i)
+    if added_url not in pages_links:
+        pages_links.append(added_url)
 
-# print(pages_links)
+
+# for index, i in enumerate(num_page):
+#     i = num_page[index]['href'] 
+#     i = 'https:' + i
+#     if i not in pages_links:
+#         pages_links.append(i)
+
+print(pages_links)
 
 # all_listings_per_page = soup.find('table', class_ = 'tablereset', style='width:660px; margin-bottom:0px; border-top:#008FC6 1px solid;')
 
@@ -80,15 +93,15 @@ for index, i in enumerate(num_page):
 
 
 
-for link in pages_links:
-    print(link)
-    url = link
-    source_code = requests.get(url).text
-    soup = BeautifulSoup(source_code, 'html5lib')
-    # all_listings_per_page = soup.find_all('table', class_ = 'tablereset', style='width:660px; margin-bottom:0px; border-top:#008FC6 1px solid;')
-    # print(len(all_listings_per_page))
-    page_info = soup.find('span', class_ = 'pageNumbersInfo').text
-    print(page_info)
+# for link in pages_links:
+#     print(link)
+#     url = link
+#     source_code = requests.get(url).text
+#     soup = BeautifulSoup(source_code, 'html5lib')
+#     # all_listings_per_page = soup.find_all('table', class_ = 'tablereset', style='width:660px; margin-bottom:0px; border-top:#008FC6 1px solid;')
+#     # print(len(all_listings_per_page))
+#     page_info = soup.find('span', class_ = 'pageNumbersInfo').text
+#     print(page_info)
     # # pages_links.pop(0)
 
     # for listing in all_listings_per_page:

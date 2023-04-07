@@ -39,7 +39,7 @@ def listing_crunch(url, budget):
         added_url = trimmed_url + str(i)
         if added_url not in pages_links:
             pages_links.append(added_url)
-
+    # ANOTHER THING I CAN THINK OF FOR GETTING ALL THE PAGES HOWEVER MANY THEY MAY BE, JUST ITERATE OVER THE NEXT PAGE BUTTON, UNTIL THERE IS NO MORE
     counter = 1
 
     for link in pages_links:
